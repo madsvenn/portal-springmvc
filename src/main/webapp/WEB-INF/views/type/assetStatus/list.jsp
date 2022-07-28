@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: Hibiki
   Date: 2022-07-28
-  Time: 15:51
+  Time: 18:14
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
@@ -23,43 +23,39 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- 引⼊qs参数处理框架 -->
     <script type="text/javascript" src="js/qs.min.js"></script>
-
-
 </head>
 <body>
-
-
 <script id="query-form" type="text/html">
     <form class="layui-form" id="form">
         <div class="layui-inline">
             <label class="layui-form-label" style="width: auto">名称</label>
             <div class="layui-input-inline">
-                <input class="layui-input" name="sexName" value="{{d.where.sexName}}" type="text" placeholder="请输⼊性别名称"/>
+                <input class="layui-input" name="assetStatusName" value="{{d.where.assetStatusName}}" type="text" placeholder="请输⼊状态名称"/>
             </div>
         </div>
         <div class="layui-inline">
             <!-- 查询按钮需要出发事件所以使⽤button lay-event是出发事件的⼀个key后续使⽤-->
             <shiro:hasPermission name="permission:query">
-            <button type="button"
-                    lay-event="query"
-                    class="layui-btn ">查询</button>
+                <button type="button"
+                        lay-event="query"
+                        class="layui-btn ">查询</button>
             </shiro:hasPermission>
             <!-- 新增按钮会跳转⻚⾯所以这⾥使⽤a标签超链接按钮来做展示-->
             <shiro:hasPermission name="permission:insert">
-            <a href="#" class="layui-btn ">新增</a>
+                <a href="#" class="layui-btn ">新增</a>
             </shiro:hasPermission>
         </div>
     </form>
 </script>
 
 <script type="text/html" id="tool">
-                    <shiro:hasPermission name="permission:update">
-    <a href="#" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
-                    </shiro:hasPermission>
-                    <shiro:hasPermission name="permission:delete">
-    <button type="button" lay-event="delete"
-            class="layui-btn layui-btn-danger layui-btn-xs">删除</button>
-                    </shiro:hasPermission>
+    <shiro:hasPermission name="permission:update">
+        <a href="#" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="permission:delete">
+        <button type="button" lay-event="delete"
+                class="layui-btn layui-btn-danger layui-btn-xs">删除</button>
+    </shiro:hasPermission>
 </script>
 
 <script type="text/javascript">
@@ -82,17 +78,13 @@
 
             toolbar: '#query-form',
             cols:[[
-                {field:'id',title:'主键',sort: true},
-                {field:'sexName',title:'性别名称'},
+                {field:'id',title:'id',sort: true},
+                {field:'assetStatusName',title:'状态名'},
                 {title:'操作',templet: '#tool'}
             ]],
-            // data:[
-            //     {id:'1',sexName:'男'},
-            //     {id:'2',sexName: '女'}
-            // ],
             page:true,
 
-            url:'sex/list/page',
+            url:'assetStatus/list/page',
 
             response: {
                 //将返回的默认成功状态码定义为200
@@ -103,7 +95,7 @@
                 limitName: 'psize' //每⻚数据量的参数名，默认：limit
             },
             where:{
-                sexName:''
+                assetStatusName:''
             }
         })
         table.on('toolbar(table)',function (obj){
@@ -145,9 +137,10 @@
 </script>
 
 
+
 <span class="layui-breadcrumb">
- <a href="sex/list">性别维护</a>
- <a href="#">性别列表</a>
+ <a href="/assetStatus/list">状态维护</a>
+ <a href="#">状态列表</a>
  </span>
 <table id="t" lay-filter="table"></table>
 
