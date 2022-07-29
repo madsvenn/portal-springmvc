@@ -17,3 +17,6 @@
             +request.getServerPort()+path+"/";
 %>
 <base href="<%=basePath%>">
+<script type="text/html" id="icon">
+    <i class="layui-icon {{d.icon}}"></i>
+</script>

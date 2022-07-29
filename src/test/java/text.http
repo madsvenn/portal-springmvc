@@ -1,0 +1,4 @@
+GET http://localhost:8080/dept/list/page?pno=1&psize=10&name=&pid=-1&id=
+Accept: application/json
+
+###

@@ -31,6 +31,7 @@
 
 <script id="query-form" type="text/html">
     <form class="layui-form" id="form">
+        <input type="hidden" name="pno" value="1">
         <div class="layui-inline">
             <label class="layui-form-label" style="width: auto">名称</label>
             <div class="layui-input-inline">

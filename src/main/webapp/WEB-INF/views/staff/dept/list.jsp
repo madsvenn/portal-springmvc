@@ -23,6 +23,9 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- 引⼊qs参数处理框架 -->
     <script type="text/javascript" src="js/qs.min.js"></script>
+    <script type="text/html" id="icon">
+        <i class="layui-icon {{d.icon}}"></i>
+    </script>
 
 
 </head>
@@ -37,6 +40,7 @@
 
 <script id="query-form" type="text/html">
     <form class="layui-form" id="form">
+        <input type="hidden" name="pid" value="${pid}">
         <div class="layui-inline">
             <label class="layui-form-label" style="width: auto">名称</label>
             <div class="layui-input-inline">
@@ -54,13 +58,22 @@
             </shiro:hasPermission>
             <!-- 新增按钮会跳转⻚⾯所以这⾥使⽤a标签超链接按钮来做展示-->
             <shiro:hasPermission name="permission:insert">
-                <a href="dept/add/page" class="layui-btn ">新增</a>
+                <a href="dept/add/page?pid=${pid}" class="layui-btn ">新增</a>
             </shiro:hasPermission>
         </div>
     </form>
 </script>
 
 <script type="text/html" id="tool">
+    {{# if(d.isLeaf == 0){ }}
+    <shiro:hasPermission name="permission:query">
+        <a href="dept/list?pid={{d.id}}"
+           class="layui-btn layui-btn-primary layui-btn-xs">
+            ⼦部⻔列表
+        </a>
+    </shiro:hasPermission>
+    {{# } }}
+
     <shiro:hasPermission name="permission:update">
         <a href="dept/edit/page?id={{d.id}}" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
     </shiro:hasPermission>
@@ -92,7 +105,7 @@
             cols:[[
                 {field:'id',title:'主键',sort: true},
                 {field:'name',title:'部门名称'},
-                {field:'icon',title:'部门图标'},
+                {field:'icon',title:'部门图标',templet: '#icon'},
                 {title:'操作',templet: '#tool'}
             ]],
             // data:[
@@ -112,7 +125,9 @@
                 limitName: 'psize' //每⻚数据量的参数名，默认：limit
             },
             where:{
-                name:''
+                name:'',
+                pid:'${pid}',
+                id:'${id}'
             }
         });
         table.on('toolbar(table)',function (obj){

@@ -99,7 +99,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.leozhang.portalssm.entity.Dept">
+  <insert id="insert" useGeneratedKeys="true" parameterType="com.leozhang.portalssm.entity.Dept">
     insert into t_dept (id, pid, name, 
       is_leaf, icon)
     values (#{id,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
