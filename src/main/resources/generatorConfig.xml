@@ -59,8 +59,9 @@
 <!--        <table tableName="t_log" domainObjectName="Log" ></table>-->
 
 <!--        <table tableName="t_sex" domainObjectName="Sex" ></table>-->
-        <table tableName="t_asset_status" domainObjectName="AssetStatus" ></table>
-        <table tableName="t_asset_type" domainObjectName="AssetType" ></table>
+<!--        <table tableName="t_asset_status" domainObjectName="AssetStatus"/>-->
+<!--        <table tableName="t_asset_type" domainObjectName="AssetType"/>-->
+        <table tableName="t_dept" domainObjectName="Dept"/>
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">
             <columnOverride column="" javaType="" />
