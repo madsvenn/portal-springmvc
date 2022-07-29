@@ -73,7 +73,7 @@
             //代表默认不做静态数据的排序，这⾥是开启后台服务排序的意思
             autoSort: false ,
             //表格的表头设置，需要使⽤⼆维数组
-            //field代表每⼀列的属性值，与java中的实体对象Sex⼀⼀对应
+            //field代表每⼀列的属性值，与java中的实体对象⼀⼀对应
             //title代表表头展示的内容，sort代表开启排序
 
             toolbar: '#query-form',

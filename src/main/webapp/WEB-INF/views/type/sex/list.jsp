@@ -46,7 +46,7 @@
             </shiro:hasPermission>
             <!-- 新增按钮会跳转⻚⾯所以这⾥使⽤a标签超链接按钮来做展示-->
             <shiro:hasPermission name="permission:insert">
-            <a href="#" class="layui-btn ">新增</a>
+            <a href="sex/add/page" class="layui-btn ">新增</a>
             </shiro:hasPermission>
         </div>
     </form>
@@ -54,7 +54,7 @@
 
 <script type="text/html" id="tool">
                     <shiro:hasPermission name="permission:update">
-    <a href="#" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
+    <a href="sex/edit/page?id={{d.id}}" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="permission:delete">
     <button type="button" lay-event="delete"
@@ -66,7 +66,7 @@
     //利⽤layui的api初始化table组件
     layui.use('table',function(){
         //获取表格对象
-        var table = layui.table
+        var table = layui.table;
         //加载静态列表的⽅式，第⼀个参数table代表table上设置的lay-filter的值
         //第⼆个参数按照官⽅⽂档传⼊
         table.init('table',{
@@ -105,27 +105,27 @@
             where:{
                 sexName:''
             }
-        })
+        });
         table.on('toolbar(table)',function (obj){
-            console.log(obj)
-            if (obj.event == 'query'){
+            console.log(obj);
+            if (obj.event === 'query'){
 
-                var queryForm = $('#form').serialize()
+                var queryForm = $('#form').serialize();
 
-                var queryFormObj = Qs.parse(queryForm)
-                console.log(queryFormObj)
+                var queryFormObj = Qs.parse(queryForm);
+                console.log(queryFormObj);
 
                 table.reload('t',{
                     where:queryFormObj
                 })
             }
-        })
+        });
 
         table.on('sort(table)',function(obj){
-            console.log(obj)
+            console.log(obj);
             //获取当前表单数据
-            var queryForm = $('#form').serialize()
-            var queryFormObj = Qs.parse(queryForm)
+            var queryForm = $('#form').serialize();
+            var queryFormObj = Qs.parse(queryForm);
             table.reload('t',{
                 initSort: obj,
                 where:{
@@ -136,6 +136,25 @@
                     sortType:obj.type
                 }
             })
+        });
+
+        var layer = layui.layer;
+        table.on('tool(table)',function (obj) {
+            if (obj.event==='delete') {
+                var id = obj.data.id;
+                console.log(id);
+                layer.confirm('是否删除喵~',{
+                    icon:3,
+                    title:'提示',
+                },function (index) {
+                    console.log('confirm');
+                    //根据index来关闭
+                    location.href = 'sex/delete?id='+id;
+                    layer.close(index);
+                    }
+                )
+            }
+
         })
 
 
@@ -147,7 +166,7 @@
 
 <span class="layui-breadcrumb">
  <a href="sex/list">性别维护</a>
- <a href="#">性别列表</a>
+ <a href="sex/list">性别列表</a>
  </span>
 <table id="t" lay-filter="table"></table>
 

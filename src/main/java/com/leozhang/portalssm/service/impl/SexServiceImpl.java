@@ -38,4 +38,25 @@ public class SexServiceImpl implements SexService {
 
         return Result.end(200,list,"查询成功",page.getTotal());
     }
+
+    @Override
+    public void insertSex(Sex sex) {
+        sexMapper.insert(sex);
+    }
+
+    @Override
+    public Sex selectById(Long id) {
+        return sexMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateSex(Sex sex) {
+        //使⽤updateByPrimaryKeySelective函数表示只有提交的属性会做更改判断，其他属性不会被覆盖为空值
+        sexMapper.updateByPrimaryKeySelective(sex);
+    }
+
+    @Override
+    public void deleteSexById(Long id) {
+        sexMapper.deleteByPrimaryKey(id);
+    }
 }
