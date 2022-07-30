@@ -36,4 +36,24 @@ public class AssetTypeServiceImpl implements AssetTypeService {
 
         return Result.end(200,list,"查询成功",page.getTotal());
     }
+
+    @Override
+    public AssetType selectById(Long id) {
+        return typeMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void insertData(AssetType assetType) {
+        typeMapper.insert(assetType);
+    }
+
+    @Override
+    public void updatedata(AssetType assetType) {
+        typeMapper.updateByPrimaryKeySelective(assetType);
+    }
+
+    @Override
+    public void deleteData(Long id) {
+        typeMapper.deleteByPrimaryKey(id);
+    }
 }

@@ -40,7 +40,7 @@
                         class="layui-btn ">查询</button>
             </shiro:hasPermission>
             <shiro:hasPermission name="permission:insert">
-                <a href="#" class="layui-btn ">新增</a>
+                <a href="assetType/add/page" class="layui-btn ">新增</a>
             </shiro:hasPermission>
         </div>
     </form>
@@ -48,7 +48,7 @@
 
 <script type="text/html" id="tool">
     <shiro:hasPermission name="permission:update">
-        <a href="#" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
+        <a href="assetType/edit/page?id={{d.id}}" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
     </shiro:hasPermission>
     <shiro:hasPermission name="permission:delete">
         <button type="button" lay-event="delete"
@@ -113,6 +113,25 @@
                     sortType:obj.type
                 }
             })
+        })
+
+        var layer = layui.layer;
+        table.on('tool(table)',function (obj) {
+            if (obj.event==='delete') {
+                var id = obj.data.id;
+                console.log(id);
+                layer.confirm('是否删除喵~',{
+                        icon:3,
+                        title:'提示',
+                    },function (index) {
+                        console.log('confirm');
+                        //根据index来关闭
+                        location.href = 'assetType/delete?id='+id;
+                        layer.close(index);
+                    }
+                )
+            }
+
         })
 
 

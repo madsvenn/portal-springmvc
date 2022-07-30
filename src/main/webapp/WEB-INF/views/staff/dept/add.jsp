@@ -22,7 +22,7 @@
  <a href="dept/list?pid=${pid}">部⻔管理</a>
  <a > 部⻔新增 </a>
  </span>
-<form class="layui-form" lay-filter="form" action="dept/add" method="post">
+<form class="layui-form" lay-filter="form" action="assetStatus/add" method="post">
     <!-- 隐藏提交pid保证层级-->
     <input type="hidden" name="pid" value="${pid}"/>
     <div class="layui-form-item">

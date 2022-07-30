@@ -39,4 +39,24 @@ public class AssetStatusServiceImpl implements AssetStatusService {
 
         return Result.end(200,list,"查询成功",page.getTotal());
     }
+
+    @Override
+    public AssetStatus selectById(Long id) {
+        return assetStatusMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void insertData(AssetStatus assetStatus) {
+        assetStatusMapper.insert(assetStatus);
+    }
+
+    @Override
+    public void updatedata(AssetStatus assetStatus) {
+        assetStatusMapper.updateByPrimaryKeySelective(assetStatus);
+    }
+
+    @Override
+    public void deleteData(Long id) {
+        assetStatusMapper.deleteByPrimaryKey(id);
+    }
 }

@@ -96,7 +96,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.leozhang.portalssm.entity.AssetType">
+  <insert id="insert" useGeneratedKeys="true" parameterType="com.leozhang.portalssm.entity.AssetType">
     insert into t_asset_type (id, asset_type_name)
     values (#{id,jdbcType=BIGINT}, #{assetTypeName,jdbcType=VARCHAR})
   </insert>
