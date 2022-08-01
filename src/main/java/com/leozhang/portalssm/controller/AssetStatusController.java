@@ -63,4 +63,5 @@ public class AssetStatusController {
         assetStatusService.deleteData(id);
         return "redirect:/assetStatus/list";
     }
+
 }

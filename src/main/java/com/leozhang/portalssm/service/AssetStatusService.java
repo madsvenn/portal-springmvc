@@ -15,4 +15,5 @@ public interface AssetStatusService {
     void updatedata(AssetStatus assetStatus);
 
     void deleteData(Long id);
+
 }
