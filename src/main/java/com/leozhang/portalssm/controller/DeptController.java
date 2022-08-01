@@ -259,4 +259,10 @@ public class DeptController {
         deptService.deleteDeptById(id);
         return "redirect:/dept/list?pid="+pid;
     }
+
+    @RequestMapping("/list/pid")
+    @ResponseBody
+    public Result getDeptListById(@RequestParam("pid")Long pid){
+        return deptService.getDeptListById(pid);
+    }
 }

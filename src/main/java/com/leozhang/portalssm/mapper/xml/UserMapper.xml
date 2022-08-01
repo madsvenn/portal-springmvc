@@ -14,6 +14,8 @@
     <result column="dept_id" jdbcType="BIGINT" property="deptId" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="insert_time" jdbcType="TIMESTAMP" property="insertTime" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -97,17 +99,20 @@
     <if test="distinct">
       distinct
     </if>
-        tu.id,
-        tu.username,
-        tu.role_id,
-        tr.role_name,
-        tu.email,
-        tu.insert_time,
-        tu.phone,
-        tu.remark,
-        tu.freeze,
-        tu.nickname
+    tu.id,
+    tu.username,
+    tu.role_id,
+    tr.role_name,
+    tu.dept_id,
+    td.name as dept_name,
+    tu.email,
+    tu.insert_time,
+    tu.phone,
+    tu.remark,
+    tu.freeze,
+    tu.nickname
     from t_user tu left join t_role tr on tu.role_id = tr.id
+    left join t_dept td on tu.dept_id = td.id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

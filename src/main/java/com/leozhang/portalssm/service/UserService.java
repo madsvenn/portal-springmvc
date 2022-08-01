@@ -31,4 +31,8 @@ public interface UserService {
     void deleteUserById(Long id);
 
     String changePassword(HttpSession session, User user, Model model);
+
+    void bingDept(Long id, Long deptId);
+
+    String getCheckedDeptList(User user);
 }

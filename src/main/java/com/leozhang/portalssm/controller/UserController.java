@@ -103,4 +103,27 @@ public class UserController {
     public String userPasswordChange(HttpSession session,Model model,User user){
         return userService.changePassword(session,user,model);
     }
+
+    @RequestMapping("/dept/list")
+    @RequiresPermissions(value = {"permission:query"})
+    public String userDeptList(){
+        return "staff/user/list";
+    }
+
+    @RequestMapping("dept/page")
+    public String userDeptPage(Long id,Model model){
+        User user = userService.findUserById(id);
+        model.addAttribute("formData",user);
+        String str = userService.getCheckedDeptList(user);
+        model.addAttribute("select",str);
+//        System.out.println("select"+str);
+        return "staff/user/bind-dept";
+    }
+
+    @RequestMapping("/bind/dept")
+    public String userBingDept(Long id,Long deptId){
+        userService.bingDept(id,deptId);
+        return "redirect:/user/dept/list";
+    }
+
 }

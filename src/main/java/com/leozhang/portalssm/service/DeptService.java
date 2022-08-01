@@ -16,4 +16,6 @@ public interface DeptService {
     void updateByDept(Dept dept);
 
     void deleteDeptById(Long id);
+
+    Result getDeptListById(Long pid);
 }

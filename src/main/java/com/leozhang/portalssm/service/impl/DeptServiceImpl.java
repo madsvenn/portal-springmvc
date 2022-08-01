@@ -80,6 +80,15 @@ public class DeptServiceImpl implements DeptService {
         });
     }
 
+    @Override
+    public Result getDeptListById(Long pid) {
+        DeptExample example = new DeptExample();
+        DeptExample.Criteria criteria = example.createCriteria();
+        criteria.andPidEqualTo(pid);
+        List<Dept> list = deptMapper.selectByExample(example);
+        return Result.end(200,list,"success",list.size());
+    }
+
     public void getDeleteList(List<Dept> deptList,List<Long> isDid,Long id){
         if (!isDid.contains(id)) isDid.add(id);
         deptList.forEach(x->{

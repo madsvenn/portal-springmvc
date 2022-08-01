@@ -4,9 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.leozhang.portalssm.entity.Menu;
-import com.leozhang.portalssm.entity.User;
-import com.leozhang.portalssm.entity.UserExample;
+import com.leozhang.portalssm.entity.*;
+import com.leozhang.portalssm.mapper.DeptMapper;
 import com.leozhang.portalssm.mapper.MenuMapper;
 import com.leozhang.portalssm.mapper.UserMapper;
 import com.leozhang.portalssm.service.UserService;
@@ -25,8 +24,8 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl  implements UserService {
@@ -36,6 +35,9 @@ public class UserServiceImpl  implements UserService {
 
     @Autowired
     private MenuMapper menuMapper;
+
+    @Autowired
+    private DeptMapper deptMapper;
 
     @Override
     public String getUserList() {
@@ -202,4 +204,87 @@ public class UserServiceImpl  implements UserService {
         model.addAttribute("complete",true);
         return "system/password/password";
     }
+
+    @Override
+    public void bingDept(Long id, Long deptId) {
+        User u = new User();
+        u.setId(id);
+        u.setDeptId(deptId);
+        userMapper.updateByPrimaryKeySelective(u);
+    }
+
+    @Override
+    public String getCheckedDeptList(User user) {
+        List<Dept> deptList = deptMapper.selectByExample(null);
+        Map<String,List<Dept>> map = new LinkedHashMap<>();
+
+        getSelectById(user.getDeptId(),map,deptList);
+
+        Set<Map.Entry<String,List<Dept>>> set = map.entrySet();
+
+        String str = "";
+
+        for (Map.Entry<String,List<Dept>> entry:set){
+            //分离出id
+            String eleId = entry.getKey().split("@")[0];
+
+            String selectedId = entry.getKey().split("@")[1];
+
+            String select = "<select id=\""+eleId+"\" class=\"layui-select\" lay-filter=\"dept-base\">" +
+                    "<option value=\"\">请选择</option>";
+
+            List<Dept> listDept = entry.getValue();
+
+            for (Dept dept : listDept){
+
+                String option = "<option value=\""+dept.getId()+"\" data-isLeaf=\""+dept.getIsLeaf()+"\" "
+                        //判断如果当前选中的id和列表中的部⻔id相同就让他状态变成默认选中
+                        +(Long.valueOf(selectedId)==dept.getId() ?"selected":"")
+                        +">"
+                        + dept.getName() +
+                        "</option>";
+                //拼接到select字符串中
+                select+=option;
+
+            }
+
+            select += "</select>";
+
+            str = select + str;
+
+        }
+        System.out.println(str);
+        return str;
+    }
+
+    public void getSelectById(Long deptId, Map<String,List<Dept>> map, List<Dept> list){
+        //根据当前的部⻔id获取部⻔对象
+        List<Dept> list1 = list.stream().filter(dept -> {
+            if (dept.getId() == deptId) {
+                return true;
+            }else{
+                return false;
+            }
+        }).collect(Collectors.<Dept>toList());
+        //如果返回的list有⻓度再进⾏下⼀步
+        if(list1.size()>0){
+            //获取当前部⻔对象
+            Dept dept = list1.get(0);
+            //根据当前部⻔的pid筛选他的同组数据l
+            List<Dept> l = list.stream().filter(d -> {
+                return d.getPid() == dept.getPid();
+            }).collect(Collectors.toList());
+            //如果部⻔的⽗id不是-1代表还没有追溯到头，进⾏递归和数据记录
+            if(dept.getPid()!= -1){
+                //使⽤dept-base部⻔⽗id@当前部⻔id作为key，存储当前同组数据
+                map.put("dept-base"+dept.getPid()+"@"+dept.getId(),l);
+                //组装完数据之后递归调⽤本函数
+                getSelectById(dept.getPid(),map,list);
+            }else{
+                //当⽗id为-1的时候直接使⽤dept-base@部⻔id保存同组数据，代表递归结束
+                map.put("dept-base@"+dept.getId(),l);
+            }
+        }
+    }
+
 }
