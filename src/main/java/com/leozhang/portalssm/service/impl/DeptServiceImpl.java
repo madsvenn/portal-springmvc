@@ -12,6 +12,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,4 +53,50 @@ public class DeptServiceImpl implements DeptService {
     public void insertDept(Dept dept) {
         deptMapper.insert(dept);
     }
+
+    @Override
+    public void deleteData(Long id) {
+        deptMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public Dept selectById(Long id) {
+        return deptMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateByDept(Dept dept) {
+        deptMapper.updateByPrimaryKeySelective(dept);
+    }
+
+    @Override
+    public void deleteDeptById(Long id) {
+        List<Dept> listAllDept = deptMapper.selectByExample(null);
+        List<Long> isDid = new ArrayList<>();
+        getDeleteList(listAllDept,isDid,id);
+        System.out.println(isDid);
+        isDid.forEach(x->{
+            deptMapper.deleteByPrimaryKey(x);
+        });
+    }
+
+    public void getDeleteList(List<Dept> deptList,List<Long> isDid,Long id){
+        if (!isDid.contains(id)) isDid.add(id);
+        deptList.forEach(x->{
+            if (x.getId()==id){
+                if (x.getIsLeaf()==1){
+                    if (!isDid.contains(x.getId())) isDid.add(x.getId());
+                }else {
+                    deptList.forEach(y-> {
+                        if (y.getPid() == id) {
+                            if (!isDid.contains(y.getPid()))isDid.add(id);
+                            getDeleteList(deptList, isDid, y.getId());
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
 }

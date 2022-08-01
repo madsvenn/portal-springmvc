@@ -14,6 +14,13 @@ public class test_dept {
     public void selecttest(){
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         DeptServiceImpl service = context.getBean(DeptServiceImpl.class);
-        logger.info(service.selectDeptByNameResult(1,2,null,null,"","",""));
+        service.deleteDeptById(23L);
+        System.out.println(1111111);
+    }
+
+    @Test
+    public void delete(){
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+
     }
 }

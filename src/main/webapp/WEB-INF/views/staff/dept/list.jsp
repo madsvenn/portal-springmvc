@@ -75,7 +75,7 @@
     {{# } }}
 
     <shiro:hasPermission name="permission:update">
-        <a href="dept/edit/page?id={{d.id}}" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
+        <a href="dept/edit/page?id={{d.id}}&pid=${pid}" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
     </shiro:hasPermission>
     <shiro:hasPermission name="permission:delete">
         <button type="button" lay-event="delete"
@@ -173,7 +173,7 @@
                     },function (index) {
                         console.log('confirm');
                         //根据index来关闭
-                        location.href = 'dept/delete?id='+id;
+                        location.href = 'dept/delete?id='+id+'&pid=${pid}';
                         layer.close(index);
                     }
                 )

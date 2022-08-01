@@ -14,6 +14,26 @@
     <link rel="stylesheet" type="text/css" href="layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="css/common.css?v=
 <%=Math.random()%>"/>
+    <script type="text/javascript">
+        layui.use('form',function () {
+            var form = layui.form;
+            form.verify({
+                isLeaf:function (value,item) {
+
+                    var arr = [];
+                    $('[name="isLeaf"]').each(function (index,item) {
+                        arr.push(item.checked)
+                    });
+                    //代表没选择
+                    if (arr[0] === arr[1]) {
+                        return "请至少选择一项"
+                    }else{
+                        return  false
+                    }
+                }
+            })
+        })
+    </script>
 
 </head>
 <body>
@@ -22,7 +42,7 @@
  <a href="dept/list?pid=${pid}">部⻔管理</a>
  <a > 部⻔新增 </a>
  </span>
-<form class="layui-form" lay-filter="form" action="assetStatus/add" method="post">
+<form class="layui-form" lay-filter="form" action="dept/add" method="post">
     <!-- 隐藏提交pid保证层级-->
     <input type="hidden" name="pid" value="${pid}"/>
     <div class="layui-form-item">
@@ -86,25 +106,6 @@
 <script type="text/javascript" src="layui/layui.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/qs.min.js"></script>
-<script type="text/javascript">
-    layui.use('form',function () {
-        var form = layui.form;
-        form.verify({
-            isLeaf:function (value,item) {
 
-                var arr = [];
-                $('[name="isLeaf"]').each(function (index,item) {
-                    arr.push(item.checked)
-                });
-                //代表没选择
-                if (arr[0] === arr[1]) {
-                    return "请至少选择一项"
-                }else{
-                    return  false
-                }
-            }
-        })
-    })
-</script>
 </body>
 </html>

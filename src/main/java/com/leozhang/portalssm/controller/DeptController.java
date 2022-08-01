@@ -236,4 +236,27 @@ public class DeptController {
         deptService.insertDept(dept);
         return "redirect:/dept/list?pid="+dept.getPid();
     }
+
+
+    @RequestMapping("/edit/page")
+    public String editPage(Long id,Long pid,
+                           Model model){
+        model.addAttribute("pid",pid);
+        Dept dept = deptService.selectById(id);
+        model.addAttribute("formData",dept);
+        model.addAttribute("iconList",iconList);
+        return "staff/dept/edit";
+    }
+
+    @RequestMapping("/edit")
+    public String editDept(Dept dept){
+        deptService.updateByDept(dept);
+        return "redirect:/dept/list?pid="+dept.getPid();
+    }
+
+    @RequestMapping("/delete")
+    public String deleteDept(Long id,Long pid){
+        deptService.deleteDeptById(id);
+        return "redirect:/dept/list?pid="+pid;
+    }
 }
