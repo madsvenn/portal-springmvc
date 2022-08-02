@@ -31,6 +31,12 @@ public class EquipmentController {
     @Autowired
     private EqStatusService eqStatusService;
 
+    /**
+     * 用来获得图片的存储地址
+     */
+    @Autowired
+    private FileController controller;
+
     @RequiresPermissions(value = "permission:query")
     @RequestMapping("/list")
     public String list(Model model){
@@ -60,6 +66,23 @@ public class EquipmentController {
         List<EquipmentBrand> equipmentBrandList = eqBrandService.selectAll();
         model.addAttribute("equipmentBrandList",equipmentBrandList);
         return "room/equipment/add";
+    }
+
+    @RequiresPermissions(value = {"permission:insert"})
+    @RequestMapping("/add")
+    public String addData(Equipment equipment){
+        equipmentService.insert(equipment);
+        return "redirect:/eq/list";
+    }
+
+    @RequiresPermissions(value = {"permission:delete"})
+    @RequestMapping("/delete")
+    public String delete(Long id){
+        Equipment equipment = equipmentService.selectById(id);
+        equipmentService.delete(id);
+        Result r = controller.delete(equipment.getImg());
+        System.out.println(r);
+        return "redirect:/eq/list";
     }
 
 

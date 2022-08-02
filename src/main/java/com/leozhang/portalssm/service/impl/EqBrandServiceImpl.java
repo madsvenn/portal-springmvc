@@ -62,4 +62,5 @@ public class EqBrandServiceImpl implements EqBrandService {
     public List<EquipmentBrand> selectAll() {
         return equipmentBrandMapper.selectByExample(null);
     }
+    
 }

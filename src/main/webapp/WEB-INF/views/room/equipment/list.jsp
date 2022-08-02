@@ -112,7 +112,7 @@
                 //这⾥的brandName,statusName,roomName代表的是连表查询的展示字段，这⾥roomName是预留字段，因为机房管理我们还没有开始开发
                 {field:'id',title:'主键',sort: true},
                 {field:'name',title:'设备名称'},
-                {field:'img',title:'设备图⽚'},
+                {field:'img',title:'设备图⽚',templet:'#img-templet'},
                 {field:'brandName',title:'设备品牌'},
                 {field:'equipmentNo',title:'设备编号'},
                 {field:'insertTime',title:'创建时间'},
@@ -198,6 +198,12 @@
     })
 
 
+</script>
+
+<script type="text/html" id="img-templet">
+    <a href="{{d.img==''||d.img==undefined?'':d.img}}" target="_blank">
+        <button class="layui-btn layui-btn-xs">预览</button>
+    </a>
 </script>
 
 

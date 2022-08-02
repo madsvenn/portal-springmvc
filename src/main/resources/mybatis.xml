@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <!-- 配置mybatis的缓存，延迟加载等等一系列属性 -->
-    <settings>
-            <!-- 打印查询语句 -->
-            <setting name="logImpl" value="STDOUT_LOGGING" />
+<!--    <settings>-->
+<!--            &lt;!&ndash; 打印查询语句 &ndash;&gt;-->
+<!--            <setting name="logImpl" value="STDOUT_LOGGING" />-->
 
-        </settings>
+<!--        </settings>-->
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
     </plugins>

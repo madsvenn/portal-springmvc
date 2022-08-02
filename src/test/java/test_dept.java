@@ -1,4 +1,3 @@
-import com.leozhang.portalssm.service.DeptService;
 import com.leozhang.portalssm.service.impl.DeptServiceImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

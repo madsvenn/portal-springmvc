@@ -24,6 +24,15 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- 引⼊qs参数处理框架 -->
     <script type="text/javascript" src="js/qs.min.js"></script>
+    <style type="text/css">
+        #equipment-img img{
+            width: 150px;
+            height: 150px;
+            border: 1px dashed #444;
+            border-radius:7px ;
+            object-fit: contain;
+        }
+    </style>
 </head>
 <body>
 <span class="layui-breadcrumb">
@@ -34,7 +43,7 @@
 
 
 <!-- 集成表单验证，的表单对象-->
-<form class="layui-form" lay-filter="form" action="equipment/add" method="post">
+<form class="layui-form" lay-filter="form" action="eq/add" method="post">
     <div class="layui-form-item">
         <label class="layui-form-label">设备名称</label>
         <div class="layui-input-block">
@@ -102,8 +111,21 @@
     <div class="layui-form-item">
         <label class="layui-form-label">设备图⽚</label>
         <div class="layui-input-block">
+            <input name="img"
+                   style="visibility: hidden;height: 0;width: 0"
+                   lay-verify="required"
+                   lay-verType="tips"
+                   lay-reqText="设备图⽚不可以为空"
+                   autocomplete="off"
+            />
+            <a id="equipment-img" target="_blank">
+                <img />
+            </a>
             <button type="button" class="layui-btn" id="upload">
                 <i class="layui-icon">&#xe67c;</i>上传图⽚
+            </button>
+
+            <button type="button" class="layui-btn layui-btn-danger" id="del-img">删除图⽚
             </button>
         </div>
     </div>
@@ -151,13 +173,48 @@
             ,url: 'file/upload' //上传接⼝
             ,done: function(res){
                 //上传完毕回调
-                console.log(res)
+                console.log(res);
+                if (res.code == 200){
+                    $("#equipment-img").prop("href",res.data.url);
+
+                    $("#equipment-img img").prop('src',res.data.url);
+
+                    $('[name="img"]').val(res.data.url);
+
+                }
             }
             ,error: function(){
                 //请求异常回调
                 console.log('error')
-            }
+            },
+
         });
+
+        $('#del-img').on('click',function(){
+            console.log('del');
+            //调⽤删除接⼝
+            $.ajax({
+                url:'file/delete',
+                method:'post',
+                data:{
+                    url:$('[name="img"]').val()
+                },
+                success(res){
+                    if(res.code == 200){
+                        //如果删除成功就执⾏重制图⽚预览部分组件
+                        $("#equipment-img").removeProp("href");
+                        $("#equipment-img img").prop('src',"");
+                        $('[name="img"]').val("")
+                    }
+                }
+            });
+
+            $('#equipment-img img').on("error",function () {
+                $(this).prop('src','image/no-img.jpg')
+            })
+        });
+
+
     })
 </script>
 

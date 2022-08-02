@@ -11,6 +11,7 @@ import com.leozhang.portalssm.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -39,5 +40,22 @@ public class EquipmentServiceImpl implements EquipmentService {
         }
         List<Equipment> list = equipmentMapper.selectAllByExample(example);
         return Result.end(200,list,"good",p.getTotal());
+    }
+
+    @Override
+    public Equipment selectById(Long id) {
+        return equipmentMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void insert(Equipment equipment) {
+        equipment.setInsertTime(new Date());
+        System.out.println(equipment.getInsertTime());
+        equipmentMapper.insert(equipment);
+    }
+
+    @Override
+    public void delete(Long id) {
+        equipmentMapper.deleteByPrimaryKey(id);
     }
 }
