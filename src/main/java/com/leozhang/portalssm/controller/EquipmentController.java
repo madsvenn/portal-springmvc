@@ -85,5 +85,20 @@ public class EquipmentController {
         return "redirect:/eq/list";
     }
 
+    @RequiresPermissions(value = {"permission:update"})
+    @RequestMapping("/edit/page")
+    public String editPage(Long id,Model model){
+        List<EquipmentBrand> equipmentBrandList = eqBrandService.selectAll();
+        model.addAttribute("equipmentBrandList",equipmentBrandList);
+        model.addAttribute("forData",equipmentService.selectById(id));
+        return "room/equipment/edit";
+    }
+
+    @RequiresPermissions(value = {"permission:update"})
+    @RequestMapping("/edit")
+    public String edit(Equipment equipment){
+        equipmentService.update(equipment);
+        return "redirect:/eq/list";
+    }
 
 }

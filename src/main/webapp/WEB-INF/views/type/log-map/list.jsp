@@ -121,7 +121,8 @@
                     var formData = Qs.parse(queryForm)
                     table.reload('table', {
                         initSort: obj,
-                        where: formData
+                        where: formData,
+                        page:{curr:1}
                     })
                 }
             })

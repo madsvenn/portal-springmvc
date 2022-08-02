@@ -58,4 +58,10 @@ public class EquipmentServiceImpl implements EquipmentService {
     public void delete(Long id) {
         equipmentMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public void update(Equipment equipment) {
+        equipmentMapper.updateByPrimaryKeySelective(equipment);
+    }
+
 }

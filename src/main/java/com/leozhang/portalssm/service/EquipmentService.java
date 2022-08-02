@@ -12,4 +12,6 @@ public interface EquipmentService {
     void insert(Equipment equipment);
 
     void delete(Long id);
+
+    void update(Equipment equipment);
 }
