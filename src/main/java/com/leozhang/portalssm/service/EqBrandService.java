@@ -4,6 +4,8 @@ import com.leozhang.portalssm.entity.EquipmentBrand;
 import com.leozhang.portalssm.util.Result;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 public interface EqBrandService {
     Result getListForPage(int pno, int psize, String bName, String sortField, String sortType);
@@ -15,4 +17,6 @@ public interface EqBrandService {
     void updateData(EquipmentBrand equipmentBrand);
 
     void deleteData(Long id);
+
+    List<EquipmentBrand> selectAll();
 }

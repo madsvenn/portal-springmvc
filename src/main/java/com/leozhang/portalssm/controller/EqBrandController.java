@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class EqBrandController {
 
     @Autowired
-    EqBrandService eqBrandService;
+    private EqBrandService eqBrandService;
 
     @RequestMapping("/list")
     public String eqBrandList(){

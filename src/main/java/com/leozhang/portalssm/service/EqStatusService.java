@@ -5,6 +5,8 @@ import com.leozhang.portalssm.entity.EquipmentStatus;
 import com.leozhang.portalssm.util.Result;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 public interface EqStatusService {
 
@@ -17,4 +19,6 @@ public interface EqStatusService {
     void updateData(EquipmentStatus equipmentStatus);
 
     void deleteData(Long id);
+
+    List<EquipmentStatus> selectAll();
 }

@@ -1,6 +1,5 @@
 package com.leozhang.portalssm.controller;
 
-import com.leozhang.portalssm.entity.EquipmentBrand;
 import com.leozhang.portalssm.entity.EquipmentStatus;
 import com.leozhang.portalssm.service.EqStatusService;
 import com.leozhang.portalssm.util.Result;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class EqStatusController {
 
     @Autowired
-    EqStatusService eqStatusService;
+    private EqStatusService eqStatusService;
 
     @RequestMapping("/list")
     public String eqStatusList(){
@@ -33,6 +32,7 @@ public class EqStatusController {
 
         return eqStatusService.getListForPage(pno,psize,statusName,sortField,sortType);
     }
+
 
     @RequestMapping("/add/page")
     public String addPage(){

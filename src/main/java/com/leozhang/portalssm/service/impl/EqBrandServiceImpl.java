@@ -17,7 +17,7 @@ import java.util.List;
 public class EqBrandServiceImpl implements EqBrandService {
 
     @Autowired
-    EquipmentBrandMapper equipmentBrandMapper;
+    private EquipmentBrandMapper equipmentBrandMapper;
 
     @Override
     public Result getListForPage(int pno, int psize, String bName, String sortField, String sortType) {
@@ -56,5 +56,10 @@ public class EqBrandServiceImpl implements EqBrandService {
     @Override
     public void deleteData(Long id) {
         equipmentBrandMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<EquipmentBrand> selectAll() {
+        return equipmentBrandMapper.selectByExample(null);
     }
 }

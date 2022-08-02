@@ -20,7 +20,7 @@ import java.util.List;
 public class EqStatusServiceImpl implements EqStatusService {
 
     @Autowired
-    EquipmentStatusMapper equipmentStatusMapper;
+    private EquipmentStatusMapper equipmentStatusMapper;
 
     @Override
     public Result getListForPage(int pno, int psize, String sName, String sortField, String sortType) {
@@ -58,5 +58,10 @@ public class EqStatusServiceImpl implements EqStatusService {
     @Override
     public void deleteData(Long id) {
         equipmentStatusMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<EquipmentStatus> selectAll() {
+        return equipmentStatusMapper.selectByExample(null);
     }
 }

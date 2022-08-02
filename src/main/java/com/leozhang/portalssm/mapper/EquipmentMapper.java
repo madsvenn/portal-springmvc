@@ -27,4 +27,6 @@ public interface EquipmentMapper {
     int updateByPrimaryKeySelective(Equipment record);
 
     int updateByPrimaryKey(Equipment record);
+
+    List<Equipment> selectAllByExample(EquipmentExample example);
 }

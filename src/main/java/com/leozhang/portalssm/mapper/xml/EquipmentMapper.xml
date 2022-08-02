@@ -5,14 +5,17 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="brand_id" jdbcType="BIGINT" property="brandId" />
+    <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
     <result column="equipment_no" jdbcType="VARCHAR" property="equipmentNo" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="insert_time" jdbcType="TIMESTAMP" property="insertTime" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="status_id" jdbcType="BIGINT" property="statusId" />
+    <result column="status_name" jdbcType="VARCHAR" property="statusName" />
     <result column="img" jdbcType="VARCHAR" property="img" />
     <result column="room_id" jdbcType="BIGINT" property="roomId" />
     <result column="factory" jdbcType="VARCHAR" property="factory" />
+
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -303,4 +306,36 @@
       factory = #{factory,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectAllByExample"
+          parameterType="com.leozhang.portalssm.entity.EquipmentExample"
+          resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    te.id,
+    te.`name`,
+    te.brand_id,
+    teb.brand_name,
+    te.description,
+    te.equipment_no,
+    te.factory,
+    te.img,
+    te.insert_time,
+    te.remark,
+    te.room_id,
+    te.status_id,
+    tes.status_name
+    from t_equipment te
+    left join t_equipment_brand teb on te.brand_id = teb.id
+    left join t_equipment_status tes on te.status_id = tes.id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
 </mapper>

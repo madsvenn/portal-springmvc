@@ -1,5 +1,8 @@
 package com.leozhang.portalssm.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Equipment {
@@ -13,6 +16,8 @@ public class Equipment {
 
     private String remark;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd:mm:ss",timezone = "GMT+8")
     private Date insertTime;
 
     private String description;
@@ -24,6 +29,26 @@ public class Equipment {
     private Long roomId;
 
     private String factory;
+
+    private String brandName;
+
+    private String statusName;
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
 
     public Long getId() {
         return id;
