@@ -37,7 +37,7 @@
 <span class="layui-breadcrumb">
  <%-- <a href="">⾸⻚</a>--%>
  <a href="sex/list">设备管理</a>
- <a > 设备新增 </a>
+ <a > 设备修改 </a>
  </span>
 
 

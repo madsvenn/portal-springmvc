@@ -1,4 +1,5 @@
-<aside class="aside layui-show-md-block layui-hide-sm layui-hide-xs layui-bg-black" id="menu">
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+    <aside class="aside layui-show-md-block layui-hide-sm layui-hide-xs layui-bg-black" id="menu">
     <%--            ${menuList}--%>
     <ul class="layui-nav layui-nav-tree" lay-filter="test" style="width: 100%">
         <c:forEach items="${menuList}" varStatus="status" var="menuFather">

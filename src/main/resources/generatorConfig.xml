@@ -62,9 +62,10 @@
 <!--        <table tableName="t_asset_status" domainObjectName="AssetStatus"/>-->
 <!--        <table tableName="t_asset_type" domainObjectName="AssetType"/>-->
 <!--        <table tableName="t_dept" domainObjectName="Dept"/>-->
-        <table tableName="t_equipment" domainObjectName="Equipment"/>
-        <table tableName="t_equipment_brand" domainObjectName="EquipmentBrand"/>
-        <table tableName="t_equipment_status" domainObjectName="EquipmentStatus"/>
+<!--        <table tableName="t_equipment" domainObjectName="Equipment"/>-->
+<!--        <table tableName="t_equipment_brand" domainObjectName="EquipmentBrand"/>-->
+<!--        <table tableName="t_equipment_status" domainObjectName="EquipmentStatus"/>-->
+        <table tableName="t_room_area" domainObjectName="RoomArea"/>
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">
             <columnOverride column="" javaType="" />

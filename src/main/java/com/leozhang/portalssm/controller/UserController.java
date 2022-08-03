@@ -110,7 +110,7 @@ public class UserController {
         return "staff/user/list";
     }
 
-    @RequestMapping("dept/page")
+    @RequestMapping("/dept/page")
     public String userDeptPage(Long id,Model model){
         User user = userService.findUserById(id);
         model.addAttribute("formData",user);

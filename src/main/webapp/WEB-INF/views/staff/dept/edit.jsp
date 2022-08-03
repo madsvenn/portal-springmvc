@@ -19,7 +19,7 @@
 <span class="layui-breadcrumb">
 <%-- <a href="">⾸⻚</a>--%>
  <a href="dept/list?pid=${pid}">部⻔管理</a>
- <a > 部⻔新增 </a>
+ <a > 部⻔修改 </a>
  </span>
 
 <form class="layui-form" lay-filter="form" action="dept/edit" method="post">

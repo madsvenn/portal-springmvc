@@ -20,6 +20,7 @@ public class AssetTypeServiceImpl implements AssetTypeService {
 
     @Autowired
     private AssetTypeMapper typeMapper;
+
     @Override
     public Result assetTypeService(int pno, int psize, String assetTypeName, String sortField, String sortType) {
 
