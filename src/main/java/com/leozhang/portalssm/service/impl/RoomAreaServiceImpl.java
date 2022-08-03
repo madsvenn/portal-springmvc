@@ -57,4 +57,9 @@ public class RoomAreaServiceImpl implements RoomAreaService {
     public void deleteById(Long id) {
         roomAreaMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<RoomArea> selectAll() {
+        return roomAreaMapper.selectByExample(null);
+    }
 }

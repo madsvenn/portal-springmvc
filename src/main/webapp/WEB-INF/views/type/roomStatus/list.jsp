@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Hibiki
-  Date: 2022-07-28
-  Time: 15:51
+  Date: 2022-08-03
+  Time: 18:23
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
@@ -31,69 +31,24 @@
 
 <script id="query-form" type="text/html">
     <form class="layui-form" id="form">
-
         <div class="layui-inline">
             <label class="layui-form-label" style="width: auto">名称</label>
             <div class="layui-input-inline">
-                <input class="layui-input" name="name" value="{{d.where.name}}" type="text" placeholder="请输⼊设备名称"/>
+                <input class="layui-input" name="roomName" value="{{d.where.roomName}}" type="text" placeholder="请输⼊状态名称"/>
             </div>
         </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label" style="width: auto">设备状态</label>
-            <div class="layui-input-inline">
-                <select class="layui-select" name="brandId">
-                    <option value="">请选择</option>
-                    <c:forEach items="${equipmentBrandList}" var="item">
-                        <option value="${item.id}"
-                                {{d.where.brandId==${item.id}?'selected':''}}>${item.brandName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label" style="width: auto">设备品牌</label>
-            <div class="layui-input-inline">
-                <select class="layui-select" name="statusId">
-                    <option value="">请选择</option>
-                    <c:forEach items="${equipmentStatusList}" var="item">
-                        <option value="${item.id}"
-                                {{d.where.statusId==${item.id}?'selected':''}}>${item.statusName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-
-
-
         <div class="layui-inline">
             <!-- 查询按钮需要出发事件所以使⽤button lay-event是出发事件的⼀个key后续使⽤-->
             <shiro:hasPermission name="permission:query">
-            <button type="button"
-                    lay-event="query"
-                    class="layui-btn ">查询</button>
+                <button type="button"
+                        lay-event="query"
+                        class="layui-btn ">查询</button>
             </shiro:hasPermission>
             <!-- 新增按钮会跳转⻚⾯所以这⾥使⽤a标签超链接按钮来做展示-->
-            <shiro:hasPermission name="permission:insert">
-            <a href="eq/add/page" class="layui-btn ">新增</a>
-            </shiro:hasPermission>
         </div>
     </form>
 </script>
 
-<script type="text/html" id="tool">
-                    <shiro:hasPermission name="permission:update">
-    <a href="eq/edit/page?id={{d.id}}" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
-                    </shiro:hasPermission>
-                    <shiro:hasPermission name="permission:delete">
-    <button type="button" lay-event="delete"
-            class="layui-btn layui-btn-danger layui-btn-xs">删除</button>
-                    </shiro:hasPermission>
-                    <shiro:hasPermission name="permission:update">
-     <a href="eq/set/status?id={{d.id}}"
-        class="layui-btn layui-btn-primary layui-btn-xs" >设置状态</a>
-                    </shiro:hasPermission>
-</script>
 
 <script type="text/javascript">
     //利⽤layui的api初始化table组件
@@ -109,28 +64,23 @@
             height: 'full-80',
             //代表默认不做静态数据的排序，这⾥是开启后台服务排序的意思
             autoSort: false ,
-
+            //表格的表头设置，需要使⽤⼆维数组
+            //field代表每⼀列的属性值，与java中的实体对象Sex⼀⼀对应
+            //title代表表头展示的内容，sort代表开启排序
 
             toolbar: '#query-form',
             cols:[[
-                //这⾥的brandName,statusName,roomName代表的是连表查询的展示字段，这⾥roomName是预留字段，因为机房管理我们还没有开始开发
                 {field:'id',title:'主键',sort: true},
-                {field:'name',title:'设备名称'},
-                {field:'img',title:'设备图⽚',templet:'#img-templet'},
-                {field:'brandName',title:'设备品牌'},
-                {field:'equipmentNo',title:'设备编号'},
-                {field:'insertTime',title:'创建时间'},
-                {field:'description',title:'描述'},
-                {field:'statusName',title:'设备状态'},
-                {field:'roomName',title:'所属机房'},
-                {field:'factory',title:'⼚家'},
-                {field:'remark',title:'备注'},
-                {title:'操作',templet: '#tool',fixed:'right',minWidth:200}
+                {field:'roomName',title:'状态名称'},
+                {title:'操作',templet: '#tool'}
             ]],
-
+            // data:[
+            //     {id:'1',sexName:'男'},
+            //     {id:'2',sexName: '女'}
+            // ],
             page:true,
 
-            url:'eq/list/page',
+            url:'room_status/list/page',
 
             response: {
                 //将返回的默认成功状态码定义为200
@@ -141,9 +91,7 @@
                 limitName: 'psize' //每⻚数据量的参数名，默认：limit
             },
             where:{
-                name:'',
-                brandId:'',
-                statusId:''
+                roomName:''
             }
         });
         table.on('toolbar(table)',function (obj){
@@ -179,24 +127,6 @@
             })
         });
 
-        var layer = layui.layer;
-        table.on('tool(table)',function (obj) {
-            if (obj.event==='delete') {
-                var id = obj.data.id;
-                console.log(id);
-                layer.confirm('是否删除喵~',{
-                    icon:3,
-                    title:'提示',
-                },function (index) {
-                    console.log('confirm');
-                    //根据index来关闭
-                    location.href = 'eq/delete?id='+id;
-                    layer.close(index);
-                    }
-                )
-            }
-
-        })
 
 
     })
@@ -204,16 +134,10 @@
 
 </script>
 
-<script type="text/html" id="img-templet">
-    <a href="{{d.img==''||d.img==undefined?'':d.img}}" target="_blank">
-        <button class="layui-btn layui-btn-xs">预览</button>
-    </a>
-</script>
-
 
 <span class="layui-breadcrumb">
- <a href="eq/list">设备管理</a>
- <a href="eq/list">设备列表</a>
+ <a href="room_status/list">机房状态维护</a>
+ <a href="room_status/list">机房状态列表</a>
  </span>
 <table id="t" lay-filter="table"></table>
 

@@ -35,4 +35,6 @@ public interface UserService {
     void bingDept(Long id, Long deptId);
 
     String getCheckedDeptList(User user);
+
+    List<User> selectAll();
 }

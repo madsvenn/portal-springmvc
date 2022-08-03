@@ -257,6 +257,11 @@ public class UserServiceImpl  implements UserService {
         return str;
     }
 
+    @Override
+    public List<User> selectAll() {
+        return userMapper.selectByExample(null);
+    }
+
     public void getSelectById(Long deptId, Map<String,List<Dept>> map, List<Dept> list){
         //根据当前的部⻔id获取部⻔对象
         List<Dept> list1 = list.stream().filter(dept -> {

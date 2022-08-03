@@ -1,5 +1,6 @@
 package com.leozhang.portalssm.controller;
 
+
 import com.leozhang.portalssm.entity.RoomArea;
 import com.leozhang.portalssm.service.RoomAreaService;
 import com.leozhang.portalssm.util.Result;
@@ -19,6 +20,7 @@ public class RoomAreaController {
     @Autowired
     private RoomAreaService roomAreaService;
 
+
     @RequestMapping("/list")
     public String List(){
 
@@ -35,6 +37,7 @@ public class RoomAreaController {
 
         return roomAreaService.getListForPage(pno,psize,areaName,sortField,sortType);
     }
+
 
     @RequestMapping("/add/page")
     public String addPage(){

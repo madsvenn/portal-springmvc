@@ -11,10 +11,10 @@ public class test_dept {
 
     @Test
     public void selecttest(){
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        DeptServiceImpl service = context.getBean(DeptServiceImpl.class);
-        service.deleteDeptById(23L);
-        System.out.println(1111111);
+        String sql = "11";
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(sql);
+        System.out.println(stringBuffer.toString());
     }
 
     @Test

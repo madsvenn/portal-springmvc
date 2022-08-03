@@ -101,4 +101,13 @@ public class EquipmentController {
         return "redirect:/eq/list";
     }
 
+    @RequestMapping("/set/status")
+    public String setStatus(Long id,Model model){
+        Equipment equipment = equipmentService.selectById(id);
+        List<EquipmentStatus> equipmentStatusList = eqStatusService.selectAll();
+        model.addAttribute("formData",equipment);
+        model.addAttribute("equipmentStatusList",equipmentStatusList);
+        return "room/equipment/set-status";
+    }
+
 }
