@@ -29,7 +29,8 @@ public class EqStatusServiceImpl implements EqStatusService {
         //创建查询的对象
         EquipmentStatusExample example = new EquipmentStatusExample();
         EquipmentStatusExample.Criteria criteria = example.createCriteria();
-        if (sName.trim().length()>0){
+
+        if (sName!=null && !sName.equals("")){
             criteria.andStatusNameLike("%"+sName+"%");
         }
         //添加排序条件

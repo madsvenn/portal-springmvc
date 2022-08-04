@@ -2,10 +2,7 @@ package com.leozhang.portalssm.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.leozhang.portalssm.entity.*;
-import com.leozhang.portalssm.service.RoomAreaService;
-import com.leozhang.portalssm.service.RoomService;
-import com.leozhang.portalssm.service.RoomStatusService;
-import com.leozhang.portalssm.service.UserService;
+import com.leozhang.portalssm.service.*;
 import com.leozhang.portalssm.util.Result;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +29,9 @@ public class RoomController {
 
     @Autowired
     private RoomStatusService roomStatusService;
+
+    @Autowired
+    private EquipmentService equipmentService;
 
     @RequiresPermissions(value = {"permission:query"})
     @RequestMapping("/list")
@@ -101,6 +101,36 @@ public class RoomController {
     public String delete(Long id){
         roomService.deleteById(id);
         return "redirect:/room/list";
+    }
+
+    @RequestMapping("/equipment/list")
+    public String equipmentList(Long roomId ,Model model){
+        model.addAttribute("roomId",roomId);
+        return "room/room/equipment";
+    }
+
+    @RequestMapping("/equipment/add/page")
+    public String roomEquipmentAdd(Long roomId, Model model){
+        Room room = roomService.selectById(roomId);
+        List<Equipment> equipmentList = equipmentService.selectAll();
+        model.addAttribute("formData",room);
+        model.addAttribute("equipmentList",equipmentList);
+        return "room/room/equipment-add";
+    }
+
+    @RequestMapping("/equipment/add")
+    public String addEquipment(Long id,Long roomId){
+        Equipment equipment = equipmentService.selectById(id);
+        equipment.setRoomId(roomId);
+        equipmentService.update(equipment);
+
+        return "redirect:/room/equipment/list"+"?roomId="+roomId;
+    }
+
+    @RequestMapping("/equipment/delete")
+    public String deleteEquipment(Long id,Long roomId){
+        equipmentService.deleteRoomId(id);
+        return "redirect:/room/equipment/list"+"?roomId="+roomId;
     }
 
 }

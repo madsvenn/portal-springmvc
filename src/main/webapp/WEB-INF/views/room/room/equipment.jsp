@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Hibiki
-  Date: 2022-07-28
-  Time: 15:51
+  Date: 2022-08-04
+  Time: 10:14
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"
@@ -19,8 +19,8 @@
 </head>
 <body>
 <span class="layui-breadcrumb">
- <a href="room/list">机房管理</a>
- <a href="">机房列表</a>
+ <a href="room/list?roomId=${roomId}">机房管理</a>
+ <a href="">机房设备列表</a>
  </span>
 <table id="t" lay-filter="table"></table>
 <script type="text/javascript" src="layui/layui.js"></script>
@@ -28,38 +28,16 @@
 <script type="text/javascript" src="js/qs.min.js"></script>
 <script id="query-form" type="text/html">
     <form class="layui-form" id="form">
-        <div class="layui-inline">
-            <label class="layui-form-label" style="width: auto">名称</label>
+        <input type="hidden" name="roomId" value="${roomId}"/>
+        <div class="layui-inline">/
+            <label class="layui-form-label" style="width: auto">设备名称</label>
             <div class="layui-input-inline">
                 <input class="layui-input"
-                       name="name" type="text" placeholder="请输⼊机房名称"
+                       name="name" type="text" placeholder="请输⼊设备名称"
                        value="{{d.where.name}}"
                 />
             </div>
         </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label" style="width: auto">电话</label>
-            <div class="layui-input-inline">
-                <input class="layui-input"
-                       name="phone" type="text" placeholder="请输⼊责任⼈电话"
-                       value="{{d.where.phone}}"
-                />
-            </div>
-        </div>
-
-        <div class="layui-inline">
-            <label class="layui-form-label" style="width: auto">区域</label>
-            <div class="layui-input-inline">
-                <select name="areaId" class="layui-select">
-                    <option value="">请选择</option>
-                    <c:forEach items="${areaList}" var="item">
-                        <option value="${item.id}" {{d.where.areaId == ${item.id}?'selected':''}}>${item.areaName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-
         <div class="layui-inline">
             <shiro:hasPermission name="permission:query">
                 <button type="button"
@@ -67,40 +45,26 @@
                         class="layui-btn ">查询</button>
             </shiro:hasPermission>
             <shiro:hasPermission name="permission:insert">
-                <a href="room/add/page" class="layui-btn ">新增</a>
+                <a href="room/equipment/add/page?roomId=${roomId}" class="layui-btn
+">新增设备</a>
             </shiro:hasPermission>
         </div>
-
     </form>
 </script>
-
-<script type="text/html" id="status-tool">
-    {{# if(d.status == 0){ }}
-    <span class="layui-badge layui-bg-orange">待开放</span>
-    {{# }else if(d.status == 1){ }}
-    <span class="layui-badge layui-bg-green">运⾏中</span>
-    {{# }else if(d.status == 2){ }}
-    <span class="layui-badge">已关闭</span>
-    {{# } }}
-</script>
-
 <script type="text/html" id="tool">
-    <shiro:hasPermission name="permission:update">
-        <a href="room/edit/page?id={{d.id}}" class="layui-btn layui-btn-warm layui-btn-xs" >修改</a>
-    </shiro:hasPermission>
     <shiro:hasPermission name="permission:delete">
         <button type="button" lay-event="delete"
-                class="layui-btn layui-btn-danger layui-btn-xs">删除</button>
+                class="layui-btn layui-btn-danger layui-btn-xs">删除设备</button>
     </shiro:hasPermission>
-
-    <shiro:hasPermission name="permission:update">
-        <a href="room/bind/user/page?id={{d.id}}" class="layui-btn layui-btn-xs" >关联责
-            任⼈</a>
-    </shiro:hasPermission>
-
-    <shiro:hasPermission name="permission:update">
-        <a href="room/equipment/list?roomId={{d.id}}" class="layui-btn layui-btn-primary layui-btn-xs" >设备管理</a>
-    </shiro:hasPermission>
+</script>
+<script type="text/html" id="img-templet">
+    {{# if(d.img==undefined||d.img == ''){ }}
+    暂⽆
+    {{# }else{ }}
+    <a href="{{d.img}}" target="_blank">
+        <button class="layui-btn layui-btn-xs">预览</button>
+    </a>
+    {{# } }}
 </script>
 <script type="text/javascript">
     layui.use('table',function(){
@@ -112,17 +76,24 @@
             toolbar: '#query-form',
             cols:[[
                 {field:'id',title:'主键',sort: true},
-                {field:'name',title:'机房名称'},
-                {field:'areaName',title:'机房区域'},
-                {field:'username',title:'责任⼈'},
-                {field:'phone',title:'责任⼈电话'},
-                {field:'status',title:'机房状态',templet: '#status-tool'},
-                {field:'size',title:'机房⾯积'},
+                {field:'name',title:'设备名称'},
+                {field:'img',title:'设备图⽚',templet:'#img-templet'},
+                {field:'brandName',title:'设备品牌'},
+                {field:'equipmentNo',title:'设备编号'},
+                {field:'insertTime',title:'创建时间'},
+                {field:'description',title:'描述'},
+                {field:'statusName',title:'设备状态'},
+                {field:'roomName',title:'所属机房'},
+                {field:'factory',title:'⼚家'},
                 {field:'remark',title:'备注'},
-                {title:'操作',templet: '#tool',width:400}
+                {title:'操作',templet: '#tool',fixed:'right',minWidth:200}
             ]],
+            // data:[
+            // {id:'1',sexName:'男'},
+            // {id:'2',sexName:'⼥'}
+            // ],
             page:true,
-            url:'room/list/page',
+            url:'eq/list/page',
             response: {
                 statusCode: 200
             },
@@ -132,8 +103,8 @@
             },
             where:{
                 name:'',
-                areaId:'',
-                phone:''
+                //追加roomId这⾥及其重要
+                roomId:${roomId}
             }
         })
         table.on('toolbar(table)',function(obj){
@@ -152,16 +123,16 @@
             if(obj.event == 'delete'){
                 //获取本⾏数据的id
                 var id = obj.data.id
+                console.log(id)
                 layer.confirm('正在删除当前数据是否继续?',{
                     icon:3,
                     title:'提示'
                 },function(index){
-                    location.href = 'room/delete?id='+id
+                    location.href = 'room/equipment/delete?id='+id+"&roomId="+"${roomId}";
                     layer.close(index)
                 })
             }
         })
-
         table.on('sort(table)',function(obj){
             console.log(obj)
             var queryForm = $('#form').serialize()
@@ -179,4 +150,3 @@
 </script>
 </body>
 </html>
-

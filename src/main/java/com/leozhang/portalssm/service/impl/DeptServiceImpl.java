@@ -23,6 +23,7 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
 
+    @Deprecated
     private static Logger logger= LogManager.getLogger(LogManager.DEFAULT_CONFIGURATION_FILE);
 
     @Override

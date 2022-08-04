@@ -21,7 +21,10 @@ public class EquipmentServiceImpl implements EquipmentService {
     private EquipmentMapper equipmentMapper;
 
     @Override
-    public Result selectListForPage(int pno, int psize, String name, Long brandId, Long statusId, String sortField, String sortType) {
+    public Result selectListForPage(int pno, int psize, String name,
+                                    Long brandId, Long statusId,
+                                    String sortField, String sortType,
+                                    Long roomId) {
 
         Page<Equipment> p = PageHelper.startPage(pno,psize);
         EquipmentExample example = new EquipmentExample();
@@ -37,6 +40,9 @@ public class EquipmentServiceImpl implements EquipmentService {
         }
         if (sortField!=null && !sortField.trim().equals("")){
             example.setOrderByClause(ChangeChar.camelToUnderline(sortField,2)+" "+sortType);
+        }
+        if (roomId!=null){
+            criteria.andRoomIdEqualTo(roomId);
         }
         List<Equipment> list = equipmentMapper.selectAllByExample(example);
         return Result.end(200,list,"good",p.getTotal());
@@ -62,6 +68,26 @@ public class EquipmentServiceImpl implements EquipmentService {
     @Override
     public void update(Equipment equipment) {
         equipmentMapper.updateByPrimaryKeySelective(equipment);
+    }
+
+    @Override
+    public List<Equipment> selectAll() {
+        EquipmentExample example = new EquipmentExample();
+        example.createCriteria().andRoomIdIsNull();
+        return equipmentMapper.selectAllByExample(example);
+    }
+
+    /**
+     * 删除机房，本质就是将设备中的roomid清空
+     * 这里必须要用updatebyPrimarykey来强行更改，不然改不了原数据
+     * @param id
+     */
+    @Override
+    public void deleteRoomId(Long id) {
+       Equipment equipment = equipmentMapper.selectByPrimaryKey(id);
+       equipment.setRoomId(null);
+       System.out.println(equipment);
+       equipmentMapper.updateByPrimaryKey(equipment);
     }
 
 }

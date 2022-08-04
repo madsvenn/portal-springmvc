@@ -206,7 +206,7 @@ public class EquipmentExample {
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+            addCriterion("te.name like", value, "name");
             return (Criteria) this;
         }
 

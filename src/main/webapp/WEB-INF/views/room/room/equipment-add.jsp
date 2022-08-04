@@ -1,14 +1,13 @@
-
 <%--
   Created by IntelliJ IDEA.
   User: Hibiki
-  Date: 2022-08-03
-  Time: 9:41
+  Date: 2022-08-04
+  Time: 11:39
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"
 %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <%@include file="../../basepath.jsp"%>
@@ -20,44 +19,41 @@
 <body>
 <span class="layui-breadcrumb">
  <%-- <a href="">⾸⻚</a>--%>
- <a href="sex/list">设备管理</a>
- <a > 设备修改 </a>eq
+ <a href="room/equipment/list?roomId=${formData.id}">机房设备管理</a>
+ <a > 添加机房设备 </a>
  </span>
-<form class="layui-form" lay-filter="form" action="eq/edit" method="post">
-    <input type="hidden" id="" name="id" value="${formData.id}">
+<form class="layui-form" lay-filter="form" action="room/equipment/add"
+      method="post">
+    <input type="hidden" name="roomId" value="${formData.id}"/>
     <div class="layui-form-item">
-        <label class="layui-form-label">设备名称</label>
+        <label class="layui-form-label">机房名称</label>
         <div class="layui-input-block">
             <input class="layui-input"
                    required
-                   name="name"
-                   value="${formData.name}"
-                   lay-verify="required"
-                   lay-verType="tips"
-                   lay-reqText="设备名称不可以为空"
-                   placeholder="请输⼊设备名称"
+            <%-- name="name"--%>
+                   readonly
                    autocomplete="off"
+                   value="${formData.name}"
                    type="text">
         </div>
     </div>
-
-    <!-- 需要在本⻚引⼊jstl的 c标签 -->
     <div class="layui-form-item">
-        <label class="layui-form-label">设备状态</label>
+        <label class="layui-form-label">设备列表</label>
         <div class="layui-input-block">
-            <select name="statusId" lay-verify="required"
+            <select class="layui-select" name="id"
+                    required
+                    lay-verify="required"
                     lay-verType="tips"
-                    lay-reqText="设备状态不可以为空" >
+                    lay-reqText="请选择⽤户"
+                    lay-search
+                    autocomplete="off">
                 <option value="">请选择</option>
-                <c:forEach items="${equipmentStatusList}" var="item">
-                    <option value="${item.id}" ${item.id == formData.statusId?'selected':''}
-                    >${item.statusName}</option>
+                <c:forEach items="${equipmentList}" var="item">
+                    <option value="${item.id}" >${item.name}</option>
                 </c:forEach>
             </select>
         </div>
     </div>
-
-
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="formDemo">⽴即提交

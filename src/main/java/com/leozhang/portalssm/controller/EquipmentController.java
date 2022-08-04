@@ -55,9 +55,10 @@ public class EquipmentController {
                            @RequestParam(value = "brandId",required = false)Long brandId,
                            @RequestParam(value = "statusId",required = false)Long statusId,
                            @RequestParam(value = "sortField",defaultValue = "")String sortField,
-                           @RequestParam(value = "sortType",defaultValue = "")String sortType){
+                           @RequestParam(value = "sortType",defaultValue = "")String sortType,
+                           @RequestParam(value = "roomId",required = false)Long roomId){
 
-        return equipmentService.selectListForPage(pno,psize,name,brandId,statusId,sortField,sortType);
+        return equipmentService.selectListForPage(pno,psize,name,brandId,statusId,sortField,sortType,roomId);
     }
 
     @RequiresPermissions(value = {"permission:insert"})
@@ -100,7 +101,6 @@ public class EquipmentController {
         equipmentService.update(equipment);
         return "redirect:/eq/list";
     }
-
     @RequestMapping("/set/status")
     public String setStatus(Long id,Model model){
         Equipment equipment = equipmentService.selectById(id);
@@ -109,5 +109,7 @@ public class EquipmentController {
         model.addAttribute("equipmentStatusList",equipmentStatusList);
         return "room/equipment/set-status";
     }
+
+
 
 }

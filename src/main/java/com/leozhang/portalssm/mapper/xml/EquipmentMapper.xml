@@ -14,6 +14,7 @@
     <result column="status_name" jdbcType="VARCHAR" property="statusName" />
     <result column="img" jdbcType="VARCHAR" property="img" />
     <result column="room_id" jdbcType="BIGINT" property="roomId" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
     <result column="factory" jdbcType="VARCHAR" property="factory" />
 
   </resultMap>
@@ -307,6 +308,37 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
+<!--  <select id="selectAllByExample"-->
+<!--          parameterType="com.leozhang.portalssm.entity.EquipmentExample"-->
+<!--          resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <if test="distinct">-->
+<!--      distinct-->
+<!--    </if>-->
+<!--    te.id,-->
+<!--    te.`name`,-->
+<!--    te.brand_id,-->
+<!--    teb.brand_name,-->
+<!--    te.description,-->
+<!--    te.equipment_no,-->
+<!--    te.factory,-->
+<!--    te.img,-->
+<!--    te.insert_time,-->
+<!--    te.remark,-->
+<!--    te.room_id,-->
+<!--    te.status_id,-->
+<!--    tes.status_name-->
+<!--    from t_equipment te-->
+<!--    left join t_equipment_brand teb on te.brand_id = teb.id-->
+<!--    left join t_equipment_status tes on te.status_id = tes.id-->
+<!--    <if test="_parameter != null">-->
+<!--      <include refid="Example_Where_Clause" />-->
+<!--    </if>-->
+<!--    <if test="orderByClause != null">-->
+<!--      order by ${orderByClause}-->
+<!--    </if>-->
+<!--  </select>-->
+
   <select id="selectAllByExample"
           parameterType="com.leozhang.portalssm.entity.EquipmentExample"
           resultMap="BaseResultMap">
@@ -325,11 +357,13 @@
     te.insert_time,
     te.remark,
     te.room_id,
+    tr.name as room_name,
     te.status_id,
     tes.status_name
     from t_equipment te
     left join t_equipment_brand teb on te.brand_id = teb.id
     left join t_equipment_status tes on te.status_id = tes.id
+    left join t_room tr on tr.id = te.room_id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

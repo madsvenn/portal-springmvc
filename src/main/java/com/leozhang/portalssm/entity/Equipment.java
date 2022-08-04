@@ -34,6 +34,16 @@ public class Equipment {
 
     private String statusName;
 
+    private String roomName;
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
     public String getBrandName() {
         return brandName;
     }
