@@ -10,4 +10,8 @@ public interface RoomService {
     Room selectById(Long id);
 
     void updateData(Room room);
+
+    void insert(Room room);
+
+    void deleteById(Long id);
 }

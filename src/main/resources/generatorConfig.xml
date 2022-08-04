@@ -67,7 +67,8 @@
 <!--        <table tableName="t_equipment_status" domainObjectName="EquipmentStatus"/>-->
 <!--        <table tableName="t_room_area" domainObjectName="RoomArea"/>-->
 <!--        <table tableName="t_room" domainObjectName="Room"/>-->
-        <table tableName="t_room_status" domainObjectName="RoomStatus"/>
+<!--        <table tableName="t_room_status" domainObjectName="RoomStatus"/>-->
+        <table tableName="t_order_status" domainObjectName="OrderStatus"/>
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">
             <columnOverride column="" javaType="" />

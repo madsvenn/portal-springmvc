@@ -25,7 +25,7 @@
  <a > 关联责任⼈ </a>
  </span>
 <form class="layui-form" lay-filter="form" action="room/edit" method="post">
-    <input type="hidden" name="id" value=""/>
+    <input type="hidden" name="id" value="${formData.id}"/>
     <div class="layui-form-item">
         <label class="layui-form-label">机房名称</label>
         <div class="layui-input-block">

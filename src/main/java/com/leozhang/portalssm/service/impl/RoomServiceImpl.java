@@ -49,4 +49,14 @@ public class RoomServiceImpl implements RoomService {
     public void updateData(Room room) {
         roomMapper.updateByPrimaryKeySelective(room);
     }
+
+    @Override
+    public void insert(Room room) {
+        roomMapper.insert(room);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        roomMapper.deleteByPrimaryKey(id);
+    }
 }

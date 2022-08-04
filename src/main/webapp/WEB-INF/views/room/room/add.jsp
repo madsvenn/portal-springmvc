@@ -7,53 +7,118 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <!-- 引⼊本⻚⾯的basePath⽂件，设置项⽬的根路径 -->
     <%@include file="../../basepath.jsp"%>
     <title>Title</title>
-    <!-- 引⼊layui框架的样式⽂件 -->
     <link rel="stylesheet" type="text/css" href="layui/css/layui.css"/>
-    <!-- 引⼊全局的⾃定义css⽂件 -->
-    <link rel="stylesheet" type="text/css" href="css/common.css?v=<%=Math.random()%>"/>
-    <!-- 引⼊layui的js⽂件-->
-    <script type="text/javascript" src="layui/layui.js"></script>
-    <!-- 引⼊jquery的js⽂件-->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <!-- 引⼊qs参数处理框架 -->
-    <script type="text/javascript" src="js/qs.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/common.css?v=
+<%=Math.random()%>"/>
 </head>
 <body>
 <span class="layui-breadcrumb">
  <%-- <a href="">⾸⻚</a>--%>
- <a href="sex/list">性别管理</a>
- <a > 性别新增 </a>
+ <a href="room/list">机房管理</a>
+ <a > 机房新增 </a>
  </span>
+<form class="layui-form" lay-filter="form" action="room/add" method="post">
 
-
-<!-- 集成表单验证，的表单对象-->
-<form class="layui-form" lay-filter="form" action="sex/add" method="post">
     <div class="layui-form-item">
-        <label class="layui-form-label">性别名称</label>
+        <label class="layui-form-label">机房名称</label>
         <div class="layui-input-block">
             <input class="layui-input"
                    required
-                   name="sexName"
+                   name="name"
                    lay-verify="required"
                    lay-verType="tips"
-                   lay-reqText="性别名称不可以为空"
-                   placeholder="请输⼊性别名称"
+                   lay-reqText="机房名称不可以为空"
+                   placeholder="请输⼊机房名称"
                    autocomplete="off"
                    type="text">
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">机房状态</label>
+        <div class="layui-input-block">
+            <select class="layui-input"
+                    required
+                    name="status"
+                    lay-verType="tips"
+                    lay-verify="required"
+                    lay-reqText="机房状态不可以为空"
+                    placeholder="请输⼊机房状态"
+            >
+                <option value="" >请选择</option>
+                <c:forEach items="${statusList}" var="s" varStatus="status">
+                    <option value="${s.id}" >${s.roomName}</option>
+                </c:forEach>
+
+            </select>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">机房区域</label>
+        <div class="layui-input-block">
+            <select class="layui-input"
+                    required
+                    name="areaId"
+                    lay-verType="tips"
+                    lay-verify="required"
+                    lay-reqText="机房不可以为空"
+                    placeholder="请输⼊机房区域"
+            >
+                <option value="" >请选择</option>
+                <c:forEach items="${roomAreaList}" var="s" varStatus="status">
+                    <option value="${s.id}" >${s.areaName}</option>
+                </c:forEach>
+
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea
+                    class="layui-textarea"
+                    name="remark"
+                    lay-verify="required"
+                    lay-verType="tips"
+                    lay-reqText="设备描述不可以为空"
+                    placeholder="请输⼊设备描述"
+                    autocomplete="off"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">机房面积</label>
+        <div class="layui-input-block">
+            <input class="layui-input"
+                   required
+                   name="size"
+                   lay-verify="required"
+                   lay-verType="tips"
+                   lay-reqText="大小不可以为空"
+                   placeholder="请输⼊大小"
+                   autocomplete="off"
+                   type="text">
+        </div>
+    </div>
+
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="formDemo">⽴即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="formDemo">⽴即提交
+            </button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
-
+<script type="text/javascript" src="layui/layui.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/qs.min.js"></script>
 </body>
 </html>

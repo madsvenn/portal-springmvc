@@ -82,4 +82,25 @@ public class RoomController {
         return "room/room/edit";
     }
 
+    @RequestMapping("/add/page")
+    public String addPage(Model model){
+        List<RoomStatus> statusList = roomStatusService.selectAll(null,null,null);
+        model.addAttribute("statusList",statusList);
+        List<RoomArea> roomAreaList = roomAreaService.selectAll();
+        model.addAttribute("roomAreaList",roomAreaList);
+        return "room/room/add";
+    }
+
+    @RequestMapping("/add")
+    public String add(Room room){
+        roomService.insert(room);
+        return "redirect:/room/list";
+    }
+
+    @RequestMapping("/delete")
+    public String delete(Long id){
+        roomService.deleteById(id);
+        return "redirect:/room/list";
+    }
+
 }

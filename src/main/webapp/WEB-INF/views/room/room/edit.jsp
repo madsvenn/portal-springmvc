@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: Hibiki
@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <%@include file="../../basepath.jsp"%>
@@ -19,7 +20,7 @@
 <body>
 <span class="layui-breadcrumb">
  <%-- <a href="">⾸⻚</a>--%>
- <a href="sex/list">机房管理</a>
+ <a href="room/list">机房管理</a>
  <a > 机房修改 </a>
  </span>
 <form class="layui-form" lay-filter="form" action="room/edit" method="post">
@@ -101,7 +102,7 @@
         <div class="layui-input-block">
             <textarea
                       class="layui-textarea"
-                      name="description"
+                      name="remark"
                       lay-verify="required"
                       lay-verType="tips"
                       lay-reqText="设备描述不可以为空"
