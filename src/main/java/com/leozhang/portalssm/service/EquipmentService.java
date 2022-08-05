@@ -21,4 +21,6 @@ public interface EquipmentService {
     List<Equipment> selectAll();
 
     void deleteRoomId(Long id);
+
+    List<Equipment> selectAllByNull();
 }

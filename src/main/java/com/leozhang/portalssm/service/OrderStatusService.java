@@ -3,6 +3,8 @@ package com.leozhang.portalssm.service;
 import com.leozhang.portalssm.entity.OrderStatus;
 import com.leozhang.portalssm.util.Result;
 
+import java.util.List;
+
 public interface OrderStatusService {
 
     Result getListForPage(int pno, int psize, String statusName, String sortField, String sortType);
@@ -14,4 +16,6 @@ public interface OrderStatusService {
     void updateData(OrderStatus orderStatus);
 
     void deleteData(Long id);
+
+    List<OrderStatus> selectAll();
 }

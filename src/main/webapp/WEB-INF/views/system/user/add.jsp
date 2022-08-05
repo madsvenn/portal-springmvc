@@ -85,15 +85,15 @@
 </form>
 <script type="text/javascript" src="layui/layui.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript">
-    layui.use('form',function(){
-        var form = layui.form
-        form.on('submit(form)',function(res){
-            console.log(res)
-            // return false
+<%--<script type="text/javascript">--%>
+<%--    layui.use('form',function(){--%>
+<%--        var form = layui.form--%>
+<%--        form.on('submit(form)',function(res){--%>
+<%--            console.log(res)--%>
+<%--            // return false--%>
 
-        })
-    })
-</script>
+<%--        })--%>
+<%--    })--%>
+<%--</script>--%>
 </body>
 </html>

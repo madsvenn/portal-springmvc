@@ -90,4 +90,9 @@ public class EquipmentServiceImpl implements EquipmentService {
        equipmentMapper.updateByPrimaryKey(equipment);
     }
 
+    @Override
+    public List<Equipment> selectAllByNull() {
+        return equipmentMapper.selectByExample(null);
+    }
+
 }

@@ -59,4 +59,9 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     public void deleteData(Long id) {
         orderStatusMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<OrderStatus> selectAll() {
+        return orderStatusMapper.selectByExample(null);
+    }
 }

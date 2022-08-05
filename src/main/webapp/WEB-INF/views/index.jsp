@@ -40,7 +40,11 @@
         %>
         var menuList = <%=mList%>
         var baseUrl = '<%=path%>'
+
+        //防⽌iframe默认访问⽤户⻚⾯
+        iframe.src = menuList[0].children[0].url
     </script>
     <script type="text/javascript" src="js/common.js"></script>
+
 </body>
 </html>
