@@ -8,6 +8,7 @@
     <result column="max_request" jdbcType="INTEGER" property="maxRequest" />
     <result column="max_cpu_use" jdbcType="INTEGER" property="maxCpuUse" />
     <result column="room_id" jdbcType="BIGINT" property="roomId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="low_power" jdbcType="INTEGER" property="lowPower" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -240,4 +241,25 @@
       low_power = #{lowPower,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectRoomWarnListByExample" parameterType="com.leozhang.portalssm.entity.RoomWarnExample"
+  resultMap="BaseResultMap">
+    select
+      name,id,room_id,low_power,max_cpu_use,max_disk,max_request,max_temperature
+    from (
+           select
+             tr.`name`,
+             trw.id,
+             tr.id as room_id,
+             trw.low_power,
+             trw.max_cpu_use,
+             trw.max_disk,
+             trw.max_request,
+             trw.max_temperature
+           from t_room_warn trw
+                  right join t_room tr on tr.id = trw.room_id
+         )LIN;
+
+
+  </select>
 </mapper>

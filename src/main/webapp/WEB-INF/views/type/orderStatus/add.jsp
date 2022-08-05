@@ -26,7 +26,7 @@
 <body>
 <span class="layui-breadcrumb">
  <%-- <a href="">⾸⻚</a>--%>
- <a href="orderStatus/list">订单状态管理</a>
+ <a href="orderStatus/list">工单状态管理</a>
  <a > 状态新增 </a>
  </span>
 
