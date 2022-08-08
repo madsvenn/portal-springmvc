@@ -56,7 +56,7 @@
             </shiro:hasPermission>
             <!-- 新增按钮会跳转⻚⾯所以这⾥使⽤a标签超链接按钮来做展示-->
             <shiro:hasPermission name="permission:insert">
-                <a href="order/problem/add/page" class="layui-btn ">新增</a>
+                <a href="order/todo/add/page" class="layui-btn ">新增</a>
             </shiro:hasPermission>
         </div>
     </form>

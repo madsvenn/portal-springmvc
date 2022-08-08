@@ -10,7 +10,6 @@ import com.leozhang.portalssm.service.OrderStatusService;
 import com.leozhang.portalssm.service.UserService;
 import com.leozhang.portalssm.util.Result;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,7 +73,7 @@ public class OrderController {
     }
 
     @RequiresPermissions(value = {"permission:insert"})
-    @RequestMapping("problem/add")
+    @RequestMapping("/problem/add")
     public String addData(Order order, HttpSession session){
         orderService.insert(order,session);
         return "redirect:/order/problem/list/single";
@@ -108,6 +107,23 @@ public class OrderController {
         return "redirect:/order/todo/list";
     }
 
+    @RequestMapping("/todo/add/page")
+    public String todoAddPage(Model model){
+        List<User> userList = userService.selectAll();
+        List<Equipment> equipmentList = equipmentService.selectAllByNull();
+        model.addAttribute("userList",userList);
+        model.addAttribute("equipmentList",equipmentList);
+        return "order/todo/add";
+    }
+
+    @RequiresPermissions(value = {"permission:insert"})
+    @RequestMapping("/todo/add")
+    public String addTodoData(Order order, HttpSession session){
+        orderService.insert(order,session);
+        return "redirect:/order/todo/list";
+    }
+
+
     @RequestMapping("/problem/edit/page")
     public String orderEdit(Long id,Model model){
         Order order = orderService.selectById(id);
@@ -126,6 +142,7 @@ public class OrderController {
         orderService.updateByKey(order);
         return "redirect:/order/problem/list/single";
     }
+
 
     @RequestMapping("/problem/delete")
     public String deleteOrder(Long id){
