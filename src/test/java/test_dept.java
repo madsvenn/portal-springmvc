@@ -4,6 +4,11 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class test_dept {
 
@@ -34,5 +39,15 @@ public class test_dept {
              dp) {
             System.out.println(x);
         }
+    }
+
+    @Test
+    public void code(){
+        List <Integer> list = new ArrayList<>();
+        list.add(1);list.add(2);list.add(3);
+        Integer[] nums = list.toArray(new Integer[0]);
+        int[] a = Arrays.stream(nums).mapToInt(Integer::valueOf).toArray();
+        System.out.println(a[1]);
+
     }
 }
