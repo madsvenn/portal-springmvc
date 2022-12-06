@@ -66,4 +66,7 @@ public class SexController {
         sexService.deleteSexById(id);
         return "redirect:/sex/list";
     }
+
+
+
 }
