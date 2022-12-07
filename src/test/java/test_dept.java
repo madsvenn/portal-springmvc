@@ -50,4 +50,10 @@ public class test_dept {
         System.out.println(a[1]);
 
     }
+
+    @Test
+    public void leetcode(){
+        List<Integer> list = new ArrayList()<>;
+        
+    }
 }
